@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flock Safety — Homepage Wireframe Concept</title>
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f4f4f0;
+      color: #1a1a1a;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ─── Wireframe Shell ────────────────────────────────────────────────── */
+    .wf-page {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: #fff;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+
+    /* ─── Annotation System ─────────────────────────────────────────────── */
+    /* Red dashed outlines = placeholder content regions */
+    .wf-placeholder {
+      border: 2px dashed #d0400a;
+      border-radius: 4px;
+      background: #fff8f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d0400a;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      padding: 8px;
+    }
+
+    /* Blue annotation labels */
+    .wf-label {
+      display: inline-block;
+      background: #1d4ed8;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-bottom: 6px;
+    }
+
+    /* Section meta bar */
+    .wf-section-meta {
+      background: #f0f4ff;
+      border-bottom: 1px solid #c7d2fe;
+      padding: 10px 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .wf-section-meta h2 {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #1d4ed8;
+      margin: 0;
+      min-width: 120px;
+    }
+    .wf-meta-item { font-size: 11px; color: #374151; }
+    .wf-meta-item strong { color: #111827; }
+
+    /* CMS badge */
+    .cms { background: #fef3c7; color: #92400e; padding: 1px 5px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
+    .static { background: #d1fae5; color: #065f46; padding: 1px 5px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
+
+    /* ─── Global Nav ─────────────────────────────────────────────────────── */
+    .wf-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      border-bottom: 1px solid #e5e7eb;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .wf-nav-logo {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111;
+    }
+    .wf-nav-links { display: flex; gap: 24px; }
+    .wf-nav-links span {
+      font-size: 13px;
+      color: #374151;
+      cursor: pointer;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+    }
+    .wf-nav-cta {
+      background: #111827;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 5px;
+      letter-spacing: 0.02em;
+    }
+    .wf-nav-ghost {
+      font-size: 12px;
+      font-weight: 600;
+      color: #374151;
+      margin-right: 12px;
+    }
+
+    /* ─── Shared Section Layout ──────────────────────────────────────────── */
+    .wf-section { padding: 64px 40px; }
+    .wf-section + .wf-section { border-top: 1px solid #e5e7eb; }
+    .section-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 12px;
+    }
+    h1.wf-h1 { font-size: 48px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a; }
+    h2.wf-h2 { font-size: 32px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; color: #0f172a; }
+    h3.wf-h3 { font-size: 18px; font-weight: 700; color: #0f172a; }
+    p.wf-sub { font-size: 17px; color: #4b5563; line-height: 1.65; max-width: 520px; margin-top: 16px; }
+    .cta-primary {
+      display: inline-block;
+      background: #0f172a;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 26px;
+      border-radius: 6px;
+      letter-spacing: 0.01em;
+    }
+    .cta-secondary {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+      padding: 13px 26px;
+      border-radius: 6px;
+      border: 1.5px solid #d1d5db;
+    }
+
+    /* ─── 1. Hero ────────────────────────────────────────────────────────── */
+    .wf-hero {
+      background: #0f172a;
+      color: #fff;
+      padding: 80px 40px;
+    }
+    .wf-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .wf-hero h1 {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: #f9fafb;
+    }
+    .wf-hero p.sub {
+      font-size: 18px;
+      color: #9ca3af;
+      margin-top: 16px;
+      line-height: 1.65;
+      max-width: 480px;
+    }
+    .hero-cta-stack { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+    .hero-cta-primary {
+      background: #fff;
+      color: #0f172a;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 26px;
+      border-radius: 6px;
+    }
+    .hero-cta-secondary {
+      font-size: 14px;
+      font-weight: 600;
+      color: #d1d5db;
+      padding: 13px 26px;
+      border-radius: 6px;
+      border: 1.5px solid #374151;
+    }
+    /* Proof module */
+    .wf-proof-module { display: flex; flex-direction: column; gap: 16px; }
+    .proof-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 22px 24px;
+    }
+    .proof-card.featured { border-color: #475569; }
+    .proof-stat { font-size: 36px; font-weight: 800; color: #f9fafb; letter-spacing: -0.02em; }
+    .proof-desc { font-size: 13px; color: #94a3b8; margin-top: 6px; line-height: 1.5; }
+    .proof-source { font-size: 11px; color: #64748b; margin-top: 10px; }
+
+    /* ─── 2. Fast Routing ────────────────────────────────────────────────── */
+    .routing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .route-card {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 24px;
+      background: #fafafa;
+      transition: border-color 0.15s;
+    }
+    .route-icon { width: 36px; height: 36px; border-radius: 8px; background: #e5e7eb; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .route-label { font-size: 15px; font-weight: 700; color: #0f172a; }
+    .route-value { font-size: 13px; color: #6b7280; margin-top: 6px; line-height: 1.5; }
+    .route-cta { font-size: 12px; font-weight: 600; color: #1d4ed8; margin-top: 14px; display: flex; align-items: center; gap: 4px; }
+
+    /* ─── 3. Dynamic Proof Layer ─────────────────────────────────────────── */
+    .proof-layer-bg { background: #f8fafc; }
+    .proof-board {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .proof-feat { grid-row: 1 / 3; }
+    .dyn-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 22px;
+      background: #fff;
+    }
+    .dyn-card.featured { padding: 28px; }
+    .dyn-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 2px 8px;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .tag-outcome { background: #dcfce7; color: #166534; }
+    .tag-customer { background: #dbeafe; color: #1e40af; }
+    .tag-data { background: #fef9c3; color: #854d0e; }
+    .tag-trust { background: #f3e8ff; color: #6b21a8; }
+    .tag-product { background: #ffedd5; color: #9a3412; }
+    .tag-event { background: #e0f2fe; color: #0c4a6e; }
+    .dyn-card h3 { font-size: 16px; font-weight: 700; color: #0f172a; line-height: 1.35; }
+    .dyn-card.featured h3 { font-size: 20px; }
+    .dyn-proof { font-size: 13px; color: #374151; margin-top: 8px; line-height: 1.55; }
+    .dyn-source { font-size: 11px; color: #9ca3af; margin-top: 10px; }
+    .dyn-cta { font-size: 12px; font-weight: 600; color: #1d4ed8; margin-top: 14px; display: inline-block; }
+    .proof-more { text-align: center; margin-top: 28px; }
+
+    /* ─── 4. Platform Explanation ────────────────────────────────────────── */
+    .platform-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .platform-col {
+      border-top: 3px solid #0f172a;
+      padding-top: 20px;
+    }
+    .platform-step { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; margin-bottom: 8px; }
+    .platform-col h3 { font-size: 22px; font-weight: 800; color: #0f172a; }
+    .platform-col p { font-size: 14px; color: #6b7280; margin-top: 10px; line-height: 1.6; }
+    .platform-cta-row { margin-top: 36px; }
+
+    /* ─── 5. Audience Proof ──────────────────────────────────────────────── */
+    .audience-bg { background: #0f172a; }
+    .audience-bg .section-tag { color: #64748b; }
+    .audience-bg h2.wf-h2 { color: #f9fafb; }
+    .audience-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .audience-col {
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 28px;
+      background: #1e293b;
+    }
+    .audience-who { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 10px; }
+    .audience-col h3 { font-size: 17px; font-weight: 700; color: #f9fafb; }
+    .audience-col p { font-size: 13px; color: #94a3b8; margin-top: 10px; line-height: 1.6; }
+    .audience-stat { font-size: 26px; font-weight: 800; color: #f9fafb; margin-top: 18px; }
+    .audience-stat-label { font-size: 12px; color: #64748b; margin-top: 4px; }
+    .audience-link { font-size: 12px; font-weight: 600; color: #93c5fd; margin-top: 16px; display: inline-block; }
+
+    /* ─── 6. Trust / Privacy ─────────────────────────────────────────────── */
+    .trust-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .trust-signals { display: flex; flex-direction: column; gap: 16px; }
+    .trust-signal {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+    }
+    .trust-icon { font-size: 22px; flex-shrink: 0; }
+    .trust-signal-text strong { font-size: 13px; color: #0f172a; display: block; margin-bottom: 4px; }
+    .trust-signal-text span { font-size: 12px; color: #6b7280; line-height: 1.5; }
+
+    /* ─── 7. Final CTA ───────────────────────────────────────────────────── */
+    .final-cta-bg { background: #0f172a; }
+    .final-cta-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .final-cta-inner h2 { font-size: 36px; font-weight: 800; color: #f9fafb; letter-spacing: -0.015em; }
+    .final-cta-inner p { font-size: 16px; color: #9ca3af; margin-top: 14px; line-height: 1.65; }
+    .final-cta-stack { display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+    .final-primary { background: #fff; color: #0f172a; font-size: 14px; font-weight: 700; padding: 13px 28px; border-radius: 6px; }
+    .final-ghost { font-size: 14px; font-weight: 600; color: #9ca3af; padding: 13px 28px; border-radius: 6px; border: 1.5px solid #374151; }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    .wf-footer {
+      background: #0f172a;
+      border-top: 1px solid #1e293b;
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .wf-footer span { font-size: 12px; color: #4b5563; }
+
+    /* ─── Rationale Panel ────────────────────────────────────────────────── */
+    .wf-rationale {
+      background: #f0f4ff;
+      border-top: 3px solid #1d4ed8;
+      padding: 48px 40px;
+    }
+    .wf-rationale h2 { font-size: 20px; font-weight: 800; color: #1e40af; margin-bottom: 24px; }
+    .rationale-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .rationale-card {
+      background: #fff;
+      border: 1px solid #c7d2fe;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .rationale-card h3 { font-size: 14px; font-weight: 700; color: #1e40af; margin-bottom: 8px; }
+    .rationale-card p { font-size: 13px; color: #374151; line-height: 1.65; }
+    .rationale-full { margin-top: 24px; background: #fff; border: 1px solid #c7d2fe; border-radius: 8px; padding: 24px; }
+    .rationale-full h3 { font-size: 14px; font-weight: 700; color: #1e40af; margin-bottom: 12px; }
+    .rationale-full p { font-size: 13px; color: #374151; line-height: 1.7; }
+
+    /* ─── Legend ─────────────────────────────────────────────────────────── */
+    .wf-legend {
+      background: #fff7ed;
+      border-top: 3px solid #f97316;
+      padding: 24px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+    }
+    .wf-legend strong { font-size: 12px; font-weight: 700; color: #9a3412; text-transform: uppercase; letter-spacing: 0.06em; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #374151; }
+
+    /* ─── Page Title Banner ──────────────────────────────────────────────── */
+    .wf-title-banner {
+      background: #1e40af;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .wf-title-banner h1 { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 0.02em; }
+    .wf-title-banner span { font-size: 12px; color: #bfdbfe; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     WIREFRAME HEADER
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-title-banner">
+  <h1>FLOCK SAFETY — HOMEPAGE WIREFRAME CONCEPT</h1>
+  <span>Desktop · 1280px · Annotated wireframe &amp; rationale</span>
+</div>
+
+<!-- Legend -->
+<div class="wf-legend">
+  <strong>Legend</strong>
+  <div class="legend-item"><span class="cms">CMS</span> Content managed via CMS — can be updated without a code deploy</div>
+  <div class="legend-item"><span class="static">STATIC</span> Hard-coded in the template — requires a code change to update</div>
+  <div class="legend-item" style="border-left:2px dashed #d0400a; padding-left:8px;">Dashed red border = placeholder image / media region</div>
+  <div class="legend-item"><span class="wf-label">Label</span> Annotation label identifying section, component, or intent</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     GLOBAL NAVIGATION
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-section-meta">
+  <h2>Global Nav</h2>
+  <div class="wf-meta-item"><strong>Job:</strong> Persistent wayfinding and primary conversion entry point</div>
+  <div class="wf-meta-item"><strong>Layout:</strong> Logo left · nav links center · CTA cluster right · sticky on scroll</div>
+  <div class="wf-meta-item"><span class="static">STATIC</span> Nav structure, link labels, CTA copy</div>
+</div>
+
+<nav class="wf-nav">
+  <div class="wf-nav-logo">Flock Safety</div>
+  <div class="wf-nav-links">
+    <span>Public Safety</span>
+    <span>Business</span>
+    <span>Platform</span>
+    <span>Trust</span>
+    <span>Impact</span>
+    <span>Resources</span>
+  </div>
+  <div style="display:flex;align-items:center;">
+    <span class="wf-nav-ghost">Sign in</span>
+    <span class="wf-nav-cta">Book a demo</span>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 1 — HERO
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-section-meta">
+  <h2>§1 — Hero</h2>
+  <div class="wf-meta-item"><strong>Job:</strong> Orient the visitor, establish what Flock does &amp; why it matters, deliver immediate proof</div>
+  <div class="wf-meta-item"><strong>Layout:</strong> Two-column — message + CTA stack left · proof module right</div>
+  <div class="wf-meta-item"><span class="static">STATIC</span> Headline, subhead, CTA copy, CTA destination</div>
+  <div class="wf-meta-item"><span class="cms">CMS</span> Proof stats, proof descriptions, "last updated" date on each stat</div>
+  <div class="wf-meta-item"><strong>Note:</strong> Dark background anchors the page; proof module uses subdued cards — credibility, not a dashboard</div>
+</div>
+
+<section class="wf-hero">
+  <div class="wf-hero-inner">
+
+    <!-- Left: Message -->
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;margin-bottom:14px;">
+        <span class="wf-label" style="background:#334155;">Section 1 of 7 · Hero</span>
+      </div>
+      <h1 class="wf-hero" style="font-size:52px;font-weight:800;line-height:1.05;letter-spacing:-0.025em;color:#f9fafb;">
+        Clear evidence.<br>
+        Safer communities.<br>
+        Privacy first.
+      </h1>
+      <p class="sub" style="font-size:18px;color:#9ca3af;margin-top:20px;line-height:1.65;max-width:480px;">
+        Flock Safety is a public safety operating system — giving law enforcement,
+        businesses, and communities the technology to prevent crime, locate missing
+        persons, and solve cases, without compromising privacy.
+      </p>
+      <div class="hero-cta-stack">
+        <span class="hero-cta-primary">Book a demo</span>
+        <span class="hero-cta-secondary">See how it works →</span>
+      </div>
+      <p style="font-size:11px;color:#475569;margin-top:16px;">
+        Trusted by 5,000+ agencies and organizations across the U.S.
+      </p>
+    </div>
+
+    <!-- Right: Proof Module -->
+    <div>
+      <div style="margin-bottom:12px;">
+        <span class="wf-label" style="background:#334155;">Proof Module — <span class="cms" style="background:#92400e;">CMS</span></span>
+      </div>
+      <div class="wf-proof-module">
+
+        <div class="proof-card featured">
+          <div class="proof-stat">10,000+</div>
+          <div class="proof-desc">Missing persons located with help from Flock technology</div>
+          <div class="proof-source">Source: Flock Safety internal data · Last updated June 2025</div>
+        </div>
+
+        <div class="proof-card">
+          <div class="proof-stat" style="font-size:28px;">1M+</div>
+          <div class="proof-desc">Investigations and incidents supported in 2025</div>
+          <div class="proof-source">Source: Flock Safety platform data · 2025</div>
+        </div>
+
+      </div>
+      <p style="font-size:11px;color:#475569;margin-top:12px;line-height:1.5;">
+        ⚠ Design note: Use "10,000+" rather than a rolling count-up animation unless
+        backed by a live, reliable data source. Show "last updated" on each stat card.
+        No fake real-time indicators.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 2 — FAST ROUTING MODULE
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-section-meta">
+  <h2>§2 — Fast Routing</h2>
+  <div class="wf-meta-item"><strong>Job:</strong> Help visitors self-select their path immediately; reduce bounce from wrong-path confusion</div>
+  <div class="wf-meta-item"><strong>Layout:</strong> 3-column grid of route cards — icon, label, one-line value, link arrow</div>
+  <div class="wf-meta-item"><span class="static">STATIC</span> All routing card content — labels, descriptions, destinations, icons</div>
+  <div class="wf-meta-item"><strong>Note:</strong> This is a navigation system, not a feature grid. Each card answers "Is this for me?"</div>
+</div>
+
+<section class="wf-section">
+  <span class="wf-label">Section 2 · Fast Routing</span>
+  <div class="section-tag">Where do you want to go?</div>
+  <h2 class="wf-h2">Find your path</h2>
+  <p style="font-size:15px;color:#6b7280;margin-top:10px;max-width:560px;line-height:1.6;">
+    Flock serves law enforcement, businesses, and communities.
+    Choose your focus to find the most relevant information.
+  </p>
+
+  <div class="routing-grid">
+
+    <div class="route-card">
+      <div class="route-icon">🚔</div>
+      <div class="route-label">Public Safety</div>
+      <div class="route-value">Tools built for law enforcement agencies to prevent crime and solve cases faster.</div>
+      <div class="route-cta">Explore Public Safety →</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">🏢</div>
+      <div class="route-label">Business</div>
+      <div class="route-value">Security technology that protects your property and connects your team to local law enforcement.</div>
+      <div class="route-cta">Explore for Business →</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">🏘</div>
+      <div class="route-label">Communities</div>
+      <div class="route-value">Neighborhood-level safety networks that bring residents and agencies together.</div>
+      <div class="route-cta">Explore Communities →</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">⚙️</div>
+      <div class="route-label">Platform</div>
+      <div class="route-value">Flock's integrated operating system — hardware, software, and data working as one.</div>
+      <div class="route-cta">Explore the Platform →</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">🔒</div>
+      <div class="route-label">Trust &amp; Privacy</div>
+      <div class="route-value">How Flock is built for accountability, data governance, and responsible use.</div>
+      <div class="route-cta">Visit the Trust Center →</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">📊</div>
+      <div class="route-label">Impact</div>
+      <div class="route-value">Real outcomes — missing persons found, cases solved, communities made safer.</div>
+      <div class="route-cta">See Our Impact →</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 3 — DYNAMIC PROOF LAYER
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-section-meta">
+  <h2>§3 — Dynamic Proof Layer</h2>
+  <div class="wf-meta-item"><strong>Job:</strong> Show timely proof that Flock is working in the real world right now — editorial, not social</div>
+  <div class="wf-meta-item"><strong>Layout:</strong> Featured proof card (2/3 width) + 2 stacked smaller proof cards (1/3 width)</div>
+  <div class="wf-meta-item"><span class="cms">CMS</span> All proof cards — category tag, headline, proof point, source, CTA, date</div>
+  <div class="wf-meta-item"><strong>Working names:</strong> "Proof in Motion" · "What's Working Now" · "Impact Signals" · "Flock in the Field"</div>
+  <div class="wf-meta-item"><strong>Note:</strong> Cards should be swappable without redesigning the homepage; mix content types: outcomes, customer stories, data, trust updates</div>
+</div>
+
+<section class="wf-section proof-layer-bg">
+  <span class="wf-label">Section 3 · Dynamic Proof Layer <span class="cms">CMS</span></span>
+  <div class="section-tag">Proof in Motion</div>
+  <h2 class="wf-h2">What's working now</h2>
+  <p style="font-size:15px;color:#6b7280;margin-top:10px;max-width:560px;line-height:1.6;">
+    Recent outcomes, customer stories, and data from the field.
+  </p>
+
+  <div class="proof-board">
+
+    <!-- Featured Proof Card -->
+    <div class="dyn-card featured proof-feat">
+      <span class="wf-label" style="background:#334155;font-size:9px;">Featured Card · CMS</span>
+      <div style="margin-top:12px;">
+        <span class="dyn-tag tag-outcome">Outcome</span>
+      </div>
+      <div style="height:180px;margin:16px 0;" class="wf-placeholder">
+        [ Featured image · optional · 16:9 · editorial photography ]
+      </div>
+      <h3 class="dyn-card" style="font-size:22px;font-weight:700;color:#0f172a;line-height:1.3;">
+        Missing woman found safe after agency uses Flock to narrow search to a single block
+      </h3>
+      <p class="dyn-proof">
+        A regional PD in Ohio used Flock's ALPR network to trace a vehicle of interest
+        in under four minutes, leading officers to locate a missing 74-year-old
+        within the hour.
+      </p>
+      <div class="dyn-source">Jefferson County Sheriff's Office · June 2025</div>
+      <a class="dyn-cta">Read the full story →</a>
+    </div>
+
+    <!-- Smaller Proof Card 1 -->
+    <div class="dyn-card" style="display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <span class="wf-label" style="background:#334155;font-size:9px;">Proof Card · CMS</span>
+        <div style="margin-top:10px;"><span class="dyn-tag tag-data">Data</span></div>
+        <h3 class="dyn-card" style="margin-top:8px;font-size:16px;font-weight:700;color:#0f172a;">
+          Flock cities see measurably lower crime rates, per new Safe City Index data
+        </h3>
+        <p class="dyn-proof" style="font-size:13px;">
+          2025 Safe City Index analysis across 1,200+ Flock-equipped jurisdictions
+          shows an average 12% reduction in vehicle-related crime year over year.
+        </p>
+        <div class="dyn-source">Safe City Index Report · Q1 2025</div>
+      </div>
+      <a class="dyn-cta">View the report →</a>
+    </div>
+
+    <!-- Smaller Proof Card 2 -->
+    <div class="dyn-card" style="display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <span class="wf-label" style="background:#334155;font-size:9px;">Proof Card · CMS</span>
+        <div style="margin-top:10px;"><span class="dyn-tag tag-customer">Customer Story</span></div>
+        <h3 class="dyn-card" style="margin-top:8px;font-size:16px;font-weight:700;color:#0f172a;">
+          "We solved a case in 48 hours that we'd been working for six months"
+        </h3>
+        <p class="dyn-proof" style="font-size:13px;">
+          Detective A. Reyes, Metro Nashville PD, on using Flock's Investigate tool
+          to connect a pattern of vehicle thefts across three zip codes.
+        </p>
+        <div class="dyn-source">Metro Nashville Police Department</div>
+      </div>
+      <a class="dyn-cta">Watch the story →</a>
+    </div>
+
+  </div>
+
+  <!-- View More -->
+  <div class="proof-more">
+    <span class="cta-secondary" style="font-size:13px;padding:10px 22px;">View more impact stories →</span>
+    <p style="font-size:11px;color:#9ca3af;margin-top:10px;">
+      ⚠ Design note: Consider optional filter tabs — All · Outcomes · Customer Stories · Data · Trust — above the proof board, especially if volume of cards grows.
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 4 — PLATFORM EXPLANATION
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-section-meta">
+  <h2>§4 — Platform Explanation</h2>
+  <div class="wf-meta-item"><strong>Job:</strong> Help visitors understand how Flock works as a system — without a product dump</div>
+  <div class="wf-meta-item"><strong>Layout:</strong> Short intro paragraph · 3-column Detect / Investigate / Respond framework · CTA to platform page</div>
+  <div class="wf-meta-item"><span class="static">STATIC</span> Framework labels (Detect · Investigate · Respond), column headings, core descriptions, CTA</div>
+  <div class="wf-meta-item"><strong>Note:</strong> This is a system map, not a feature list. Three clear steps, not a product catalogue.</div>
+</div>
+
+<section class="wf-section">
+  <span class="wf-label">Section 4 · Platform Explanation</span>
+  <div class="section-tag">How Flock Works</div>
+  <h2 class="wf-h2">One system. Three capabilities.</h2>
+  <p style="font-size:15px;color:#6b7280;margin-top:10px;max-width:600px;line-height:1.6;">
+    Flock is not a collection of products. It is an integrated operating system
+    that connects detection, investigation, and response in a single workflow.
+  </p>
+
+  <div class="platform-cols">
+
+    <div class="platform-col">
+      <div class="platform-step">01 · Detect</div>
+      <h3 class="platform-col">See what's happening</h3>
+      <p class="platform-col">
+        License plate readers, fixed cameras, and real-time alerts give agencies
+        and businesses persistent, privacy-conscious awareness of their environment.
+      </p>
+    </div>
+
+    <div class="platform-col">
+      <div class="platform-step">02 · Investigate</div>
+      <h3 class="platform-col">Understand what happened</h3>
+      <p class="platform-col">
+        Investigators use Flock's tools to query data, identify patterns, and
+        connect events across time and geography — from a single interface.
+      </p>
+    </div>
+
+    <div class="platform-col">
+      <div class="platform-step">03 · Respond</div>
+      <h3 class="platform-col">Act on what you know</h3>
+      <p class="platform-col">
+        Real-time alerts, hotlist hits, and coordination tools route verified
+        intelligence to the officers and teams who need it — instantly.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="platform-cta-row">
+    <span class="cta-primary">Explore the full platform →</span>
+    <p style="font-size:11px;color:#9ca3af;margin-top:12px;">
+      ⚠ Design note: Optionally add subtle product/hardware imagery at the base of each column — but keep it secondary to the concept, not the star.
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 5 — AUDIENCE / SOLUTION PROOF
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-section-meta">
+  <h2>§5 — Audience Proof</h2>
+  <div class="wf-meta-item"><strong>Job:</strong> Show relevance across key audiences with specific needs and real outcomes</div>
+  <div class="wf-meta-item"><strong>Layout:</strong> 3-column audience cards on dark background — echoes routing module with more substance</div>
+  <div class="wf-meta-item"><span class="static">STATIC</span> Audience labels and category headings</div>
+  <div class="wf-meta-item"><span class="cms">CMS</span> Proof stats, outcome descriptions, featured quote per audience</div>
+  <div class="wf-meta-item"><strong>Note:</strong> Mirrors §2 routing paths with more depth; links feed deeper audience pages, not modal overlays</div>
+</div>
+
+<section class="wf-section audience-bg">
+  <span class="wf-label">Section 5 · Audience Proof</span>
+  <div class="section-tag">Who Flock Serves</div>
+  <h2 class="wf-h2">Built for the people doing the hardest work</h2>
+
+  <div class="audience-cols">
+
+    <div class="audience-col">
+      <div class="audience-who">Law Enforcement</div>
+      <h3 class="audience-col">Find people. Solve cases. Prevent crime.</h3>
+      <p class="audience-col">
+        Flock gives agencies the real-time intelligence and investigative tools
+        to act faster, close more cases, and do more with constrained resources.
+      </p>
+      <div class="audience-stat"><span class="cms">CMS</span> 10,000+</div>
+      <div class="audience-stat-label">Missing persons located</div>
+      <a class="audience-link">Flock for Law Enforcement →</a>
+    </div>
+
+    <div class="audience-col">
+      <div class="audience-who">Businesses</div>
+      <h3 class="audience-col">Protect your property. Connect to your community.</h3>
+      <p class="audience-col">
+        From retail to commercial real estate, Flock integrates with the local
+        public safety network to deter crime before it reaches your door.
+      </p>
+      <div class="audience-stat"><span class="cms">CMS</span> 4,500+</div>
+      <div class="audience-stat-label">Business customers nationwide</div>
+      <a class="audience-link">Flock for Business →</a>
+    </div>
+
+    <div class="audience-col">
+      <div class="audience-who">Communities</div>
+      <h3 class="audience-col">Safety that belongs to everyone in the neighborhood.</h3>
+      <p class="audience-col">
+        HOAs, neighborhood associations, and municipalities use Flock to build
+        shared safety networks that give residents visibility and peace of mind.
+      </p>
+      <div class="audience-stat"><span class="cms">CMS</span> 3,000+</div>
+      <div class="audience-stat-label">Communities using Flock</div>
+      <a class="audience-link">Flock for Communities →</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 6 — TRUST / PRIVACY
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-section-meta">
+  <h2>§6 — Trust &amp; Privacy</h2>
+  <div class="wf-meta-item"><strong>Job:</strong> Make accountability and responsible technology visible — not defensive, integrated</div>
+  <div class="wf-meta-item"><strong>Layout:</strong> Two-column — message left · trust signals right</div>
+  <div class="wf-meta-item"><span class="static">STATIC</span> Section headline, framing copy, CTA to Trust Center</div>
+  <div class="wf-meta-item"><span class="cms">CMS</span> Individual trust signal cards — policy updates, certifications, audit results</div>
+  <div class="wf-meta-item"><strong>Framing:</strong> Built for safety. Designed for accountability.</div>
+</div>
+
+<section class="wf-section">
+  <span class="wf-label">Section 6 · Trust &amp; Privacy</span>
+  <div class="trust-inner">
+
+    <!-- Left: Message -->
+    <div>
+      <div class="section-tag">Trust &amp; Accountability</div>
+      <h2 class="wf-h2">Built for safety.<br>Designed for accountability.</h2>
+      <p class="wf-sub">
+        Public safety technology carries a responsibility to the communities it
+        serves. Flock is built with transparent data governance, strict use
+        policies, and independent oversight baked in — not bolted on.
+      </p>
+      <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
+        <span class="cta-primary">Visit the Trust Center →</span>
+        <span class="cta-secondary">Read our privacy policy</span>
+      </div>
+    </div>
+
+    <!-- Right: Trust Signals -->
+    <div>
+      <div style="margin-bottom:12px;"><span class="wf-label">Trust Signals · <span class="cms" style="background:#92400e;">CMS</span></span></div>
+      <div class="trust-signals">
+        <div class="trust-signal">
+          <div class="trust-icon">🔒</div>
+          <div class="trust-signal-text">
+            <strong>Data minimization by design</strong>
+            <span>Flock stores only the data necessary for public safety — with strict retention limits and no sale of data to third parties.</span>
+          </div>
+        </div>
+        <div class="trust-signal">
+          <div class="trust-icon">📋</div>
+          <div class="trust-signal-text">
+            <strong>Acceptable Use Policy enforced</strong>
+            <span>Every agency must sign and adhere to Flock's Acceptable Use Policy. Violations are investigated and can result in termination of service.</span>
+          </div>
+        </div>
+        <div class="trust-signal">
+          <div class="trust-icon">🔍</div>
+          <div class="trust-signal-text">
+            <strong>Independent audit program</strong>
+            <span>Third-party audits of data access logs are available to agencies and, in some jurisdictions, to the public.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 7 — FINAL CTA
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-section-meta">
+  <h2>§7 — Final CTA</h2>
+  <div class="wf-meta-item"><strong>Job:</strong> Give every visitor a clear, low-friction next step before they leave the page</div>
+  <div class="wf-meta-item"><strong>Layout:</strong> Centered text block · 3-CTA stack · dark background consistent with hero</div>
+  <div class="wf-meta-item"><span class="static">STATIC</span> Headline, subhead, CTA copy and destinations</div>
+  <div class="wf-meta-item"><strong>Note:</strong> Three CTAs give different visitor types a relevant path; "Book a demo" is primary</div>
+</div>
+
+<section class="wf-section final-cta-bg">
+  <span class="wf-label">Section 7 · Final CTA</span>
+  <div class="final-cta-inner">
+    <h2 class="final-cta-inner">See Flock in action</h2>
+    <p class="final-cta-inner">
+      Whether you are a law enforcement leader, a business owner, or a community
+      looking for a better safety solution — the fastest way to understand what
+      Flock can do is to see it.
+    </p>
+    <div class="final-cta-stack">
+      <span class="final-primary">Book a demo</span>
+      <span class="final-ghost">Explore the platform →</span>
+      <span class="final-ghost">See customer stories →</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     GLOBAL FOOTER
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-section-meta">
+  <h2>Footer</h2>
+  <div class="wf-meta-item"><strong>Layout:</strong> Logo + nav links + legal · dark background</div>
+  <div class="wf-meta-item"><span class="static">STATIC</span> Footer nav structure, legal copy</div>
+  <div class="wf-meta-item"><strong>Note:</strong> Footer is out of scope for this wireframe concept; treat as standard B2B SaaS footer</div>
+</div>
+
+<footer class="wf-footer">
+  <span style="font-size:14px;font-weight:800;color:#9ca3af;">Flock Safety</span>
+  <div style="display:flex;gap:20px;">
+    <span style="font-size:12px;color:#4b5563;">Public Safety</span>
+    <span style="font-size:12px;color:#4b5563;">Business</span>
+    <span style="font-size:12px;color:#4b5563;">Platform</span>
+    <span style="font-size:12px;color:#4b5563;">Trust</span>
+    <span style="font-size:12px;color:#4b5563;">Impact</span>
+    <span style="font-size:12px;color:#4b5563;">Careers</span>
+    <span style="font-size:12px;color:#4b5563;">Privacy Policy</span>
+  </div>
+  <span>© 2025 Flock Safety · All rights reserved</span>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     DESIGN RATIONALE
+══════════════════════════════════════════════════════════════════════ -->
+<div class="wf-rationale">
+  <h2>Design Rationale: Stable Hero · Fast Routing · Dynamic Proof · Deeper Pages</h2>
+
+  <div class="rationale-grid">
+
+    <div class="rationale-card">
+      <h3>1 · Stable Hero — Anchor, don't overwhelm</h3>
+      <p>
+        The hero is dark, typographically strong, and intentionally short. The headline
+        ("Clear evidence. Safer communities. Privacy first.") establishes purpose and
+        values in nine words. The proof module — two stat cards — provides immediate
+        credibility without turning the hero into a dashboard. The missing-persons stat
+        leads because it is human, emotionally legible, and requires no explanation.
+        Static headline + CTA means the page feels anchored across every visit; CMS
+        proof cards mean the numbers stay fresh without a redesign.
+      </p>
+    </div>
+
+    <div class="rationale-card">
+      <h3>2 · Fast Routing — Help visitors choose, not read</h3>
+      <p>
+        The routing module (§2) appears early in the page — before any narrative sections —
+        because many visitors arrive with a specific task (e.g., "Is Flock right for my
+        police department?"). Six route cards with a short label, one-line value, and a
+        direct link resolve that question immediately. The cards are intentionally plain:
+        the goal is navigation, not persuasion. Visitors who need depth will find it on
+        the destination pages. This structure also makes the homepage resilient to new
+        audiences — adding or renaming a card is a template edit, not a page redesign.
+      </p>
+    </div>
+
+    <div class="rationale-card">
+      <h3>3 · Dynamic Proof Layer — Editorial, not social</h3>
+      <p>
+        The proof layer (§3) is positioned after routing because it rewards visitors who
+        want evidence before committing to a path. The featured card + two smaller cards
+        layout creates hierarchy — one proof point feels prominent, others feel supporting.
+        All content is CMS-driven so the marketing team can swap cards (new case study,
+        new Safe City Index data, new product launch) without touching the template.
+        The design uses editorial visual language — a quiet category tag, a strong headline,
+        a source line — rather than a social feed or news ticker, which would feel noisy
+        and reduce credibility.
+      </p>
+    </div>
+
+    <div class="rationale-card">
+      <h3>4 · Deeper Pages Carry the Full Narrative</h3>
+      <p>
+        The homepage does not attempt to explain every product, policy, or proof point.
+        §4 (Platform) gives three-word concept headings (Detect / Investigate / Respond)
+        and routes to the platform page for depth. §5 (Audience) gives one-stat proof
+        per audience and routes to dedicated audience pages. §6 (Trust) frames the
+        accountability story in one sentence and routes to the Trust Center. This keeps
+        the homepage scannable for first-time visitors while ensuring that readers who
+        want the full narrative have a clear path to find it. The homepage is the front
+        door, not the whole house.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="rationale-full">
+    <h3>CMS vs Static Split — Why it matters</h3>
+    <p>
+      The strategic design choice to separate static structure from CMS content reflects
+      the two different tempos of this page. The structural elements — hero headline, routing
+      labels, platform framework, CTAs — change rarely and require brand/strategy sign-off
+      when they do. Keeping these static prevents accidental drift and ensures the page's
+      core message stays stable. The proof layer — stats, outcome stories, customer quotes,
+      event cards, trust updates — needs to stay current to feel credible. A homepage that
+      still shows a 2023 stat in 2026 undermines the very proof it is trying to deliver.
+      CMS-driving these cards means the content team can maintain freshness without
+      engineering involvement. The "last updated" date on hero proof stats adds transparency
+      and prevents readers from assuming a static number is live data — a subtle but
+      important trust signal that aligns with Flock's commitment to responsible technology.
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
